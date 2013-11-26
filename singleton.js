@@ -1,19 +1,24 @@
 function SingletonObject(){
-    //do we have the instance of SingletonObject
-    if (typeof SingletonObject.instance === "object") {
-        return SingletonObject.instance;    
-        
+    //cache the instance
+    var instance;
+
+    SingletonObject = function SingletonObject() {
+	return instance;
     }
 
-    this.myprop = 0;
-    
-    //cache this. The problem is SingletonObject.instance can be overriden
-    SingletonObject.instance = this;
+    SingletonObject.prototype = this;
 
-    //use return the this
-    return this;
+    instance = new SingletonObject();
+
+    instance.constructor = SingletonObject;
+
+
+    instance.myprop = 0;
+    
+    return instance;
 
 }
+
 var mySingletonObj1 = new SingletonObject();
 var mySingletonObj2 = new SingletonObject();
 
